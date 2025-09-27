@@ -37,11 +37,19 @@ exports.handler = async (event, context) => {
     const API_KEY = process.env.GEMINI_API_KEY || process.env.API_KEY;
     let genAI = null;
 
-    console.log('🔍 Environment check:');
-    console.log('  - GEMINI_API_KEY exists:', !!process.env.GEMINI_API_KEY);
-    console.log('  - API_KEY exists:', !!process.env.API_KEY);
-    console.log('  - API_KEY length:', API_KEY ? API_KEY.length : 0);
-    console.log('  - API_KEY starts with:', API_KEY ? API_KEY.substring(0, 10) + '...' : 'none');
+        console.log('🔍 Environment check:');
+        console.log('  - GEMINI_API_KEY exists:', !!process.env.GEMINI_API_KEY);
+        console.log('  - API_KEY exists:', !!process.env.API_KEY);
+        console.log('  - API_KEY length:', API_KEY ? API_KEY.length : 0);
+        console.log('  - API_KEY starts with:', API_KEY ? API_KEY.substring(0, 10) + '...' : 'none');
+        
+        // Test API key validity with a simple model check
+        try {
+          const testGenAI = new GoogleGenerativeAI(API_KEY);
+          console.log('✅ GoogleGenerativeAI initialized successfully');
+        } catch (initError) {
+          console.log('❌ GoogleGenerativeAI initialization failed:', initError.message);
+        }
 
     if (API_KEY && API_KEY !== 'test-key' && API_KEY !== 'your_actual_gemini_api_key_here') {
       try {
@@ -167,7 +175,13 @@ exports.handler = async (event, context) => {
             `کارت‌های تاروت ${displayCards} و برج ${astroSign} برای شما کشیده شده‌اند. لطفاً یک فال اسرارآمیز و الهام‌بخش به زبان فارسی بنویسید که معنای این کارت‌ها را با تأثیرات نجومی ترکیب کند. از نام‌های فارسی کارت‌ها استفاده کنید: ${displayCards}. فال باید شامل پیش‌بینی‌های مشخص درباره آینده، چالش‌ها، فرصت‌ها و راهنمایی‌های عملی باشد. فقط به زبان فارسی و با استفاده از حروف فارسی بنویسید. فال باید 4-5 جمله باشد و شامل پیش‌بینی‌های واقعی باشد.` :
             `The tarot cards ${displayCards} and zodiac sign ${astroSign} have been drawn for you. Please write a mystical and inspiring fortune reading in English that combines the meanings of these cards with astrological influences. Use the card names: ${displayCards}. The reading should include specific predictions about the future, challenges, opportunities, and practical guidance. Make it 4-5 sentences and include real predictions.`;
 
-          const result = await model.generateContent(prompt);
+          // Add timeout to prevent Netlify function timeout
+          const generatePromise = model.generateContent(prompt);
+          const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('AI generation timeout after 8 seconds')), 8000)
+          );
+          
+          const result = await Promise.race([generatePromise, timeoutPromise]);
           fortune = result.response.text();
 
           // Validate Farsi text if needed
@@ -186,6 +200,8 @@ exports.handler = async (event, context) => {
       } catch (error) {
         console.log('❌ AI generation failed:', error.message);
         console.log('❌ Error details:', error);
+        console.log('❌ Error stack:', error.stack);
+        console.log('❌ Full error object:', JSON.stringify(error, null, 2));
         throw error;
       }
     } else {
