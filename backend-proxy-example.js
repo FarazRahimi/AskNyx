@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 require('dotenv').config();
 
 // Keep API key in environment variable (optional for testing)
-const API_KEY = process.env.GEMINI_API_KEY || 'test-key';
+const API_KEY = process.env.GEMINI_API_KEY || process.env.API_KEY || 'test-key';
 let genAI = null;
 
 console.log('🔍 Environment check:');
@@ -27,7 +27,7 @@ if (API_KEY && API_KEY !== 'test-key' && API_KEY !== 'your_actual_gemini_api_key
     }
 } else {
     console.log('⚠️ No valid API key provided, using sample responses');
-    console.log('   Expected: GEMINI_API_KEY in .env file');
+    console.log('   Expected: GEMINI_API_KEY or API_KEY in .env file');
 }
 
 app.use(express.json({ limit: '10mb' }));
