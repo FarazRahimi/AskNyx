@@ -7,7 +7,7 @@ window.APP_CONFIG = {
     
     // Backend Configuration
     BACKEND_URL: 'https://asknyx-production.railway.app', // Railway backend URL
-    USE_BACKEND: false, // Temporarily disabled until CORS is fixed
+    USE_BACKEND: true,
     
     // App Configuration
     APP_NAME: 'Nyx\'s Vision',
