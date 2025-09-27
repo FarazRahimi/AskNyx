@@ -74,9 +74,98 @@ exports.handler = async (event, context) => {
         }
 
         if (model) {
+          // Convert English card names to Farsi for better AI understanding
+          let displayCards = cards;
+          if (language === 'fa') {
+            const cardTranslations = {
+              'The Fool': 'احمق',
+              'The Magician': 'جادوگر',
+              'The High Priestess': 'کاهنه بزرگ',
+              'The Empress': 'ملکه',
+              'The Emperor': 'امپراتور',
+              'The Hierophant': 'هیروفانت',
+              'The Lovers': 'عشاق',
+              'The Chariot': 'ارابه',
+              'Justice': 'عدالت',
+              'The Hermit': 'عابد',
+              'Wheel of Fortune': 'چرخ تقدیر',
+              'Strength': 'قدرت',
+              'The Hanged Man': 'مرد آویزان',
+              'Death': 'مرگ',
+              'Temperance': 'اعتدال',
+              'The Devil': 'شیطان',
+              'The Tower': 'برج',
+              'The Star': 'ستاره',
+              'The Moon': 'ماه',
+              'The Sun': 'خورشید',
+              'Judgement': 'داوری',
+              'The World': 'جهان',
+              'Ace of Cups': 'آس جام',
+              'Two of Cups': 'دو جام',
+              'Three of Cups': 'سه جام',
+              'Four of Cups': 'چهار جام',
+              'Five of Cups': 'پنج جام',
+              'Six of Cups': 'شش جام',
+              'Seven of Cups': 'هفت جام',
+              'Eight of Cups': 'هشت جام',
+              'Nine of Cups': 'نه جام',
+              'Ten of Cups': 'ده جام',
+              'Page of Cups': 'پیاده جام',
+              'Knight of Cups': 'شوالیه جام',
+              'Queen of Cups': 'ملکه جام',
+              'King of Cups': 'پادشاه جام',
+              'Ace of Swords': 'آس شمشیر',
+              'Two of Swords': 'دو شمشیر',
+              'Three of Swords': 'سه شمشیر',
+              'Four of Swords': 'چهار شمشیر',
+              'Five of Swords': 'پنج شمشیر',
+              'Six of Swords': 'شش شمشیر',
+              'Seven of Swords': 'هفت شمشیر',
+              'Eight of Swords': 'هشت شمشیر',
+              'Nine of Swords': 'نه شمشیر',
+              'Ten of Swords': 'ده شمشیر',
+              'Page of Swords': 'پیاده شمشیر',
+              'Knight of Swords': 'شوالیه شمشیر',
+              'Queen of Swords': 'ملکه شمشیر',
+              'King of Swords': 'پادشاه شمشیر',
+              'Ace of Wands': 'آس چوب',
+              'Two of Wands': 'دو چوب',
+              'Three of Wands': 'سه چوب',
+              'Four of Wands': 'چهار چوب',
+              'Five of Wands': 'پنج چوب',
+              'Six of Wands': 'شش چوب',
+              'Seven of Wands': 'هفت چوب',
+              'Eight of Wands': 'هشت چوب',
+              'Nine of Wands': 'نه چوب',
+              'Ten of Wands': 'ده چوب',
+              'Page of Wands': 'پیاده چوب',
+              'Knight of Wands': 'شوالیه چوب',
+              'Queen of Wands': 'ملکه چوب',
+              'King of Wands': 'پادشاه چوب',
+              'Ace of Pentacles': 'آس سکه',
+              'Two of Pentacles': 'دو سکه',
+              'Three of Pentacles': 'سه سکه',
+              'Four of Pentacles': 'چهار سکه',
+              'Five of Pentacles': 'پنج سکه',
+              'Six of Pentacles': 'شش سکه',
+              'Seven of Pentacles': 'هفت سکه',
+              'Eight of Pentacles': 'هشت سکه',
+              'Nine of Pentacles': 'نه سکه',
+              'Ten of Pentacles': 'ده سکه',
+              'Page of Pentacles': 'پیاده سکه',
+              'Knight of Pentacles': 'شوالیه سکه',
+              'Queen of Pentacles': 'ملکه سکه',
+              'King of Pentacles': 'پادشاه سکه'
+            };
+            
+            displayCards = cards.split(', ').map(card => 
+              cardTranslations[card.trim()] || card.trim()
+            ).join('، ');
+          }
+
           const prompt = language === 'fa' ? 
-            `Please write a mystical fortune reading in Persian/Farsi language for these tarot cards: ${cards} and astro sign: ${astroSign}. Write ONLY in Persian/Farsi script using proper Persian characters. Do not use English or Latin script. Write a beautiful, poetic interpretation that combines the tarot card meanings with the astrological influences. Include how the astro sign affects the reading. Keep it mystical and inspiring, about 3-4 sentences. Make sure to use proper Persian grammar and vocabulary.` :
-            `Generate a mystical fortune reading in English for these tarot cards: ${cards} and astro sign: ${astroSign}. Write a beautiful, poetic interpretation that combines the tarot card meanings with the astrological influences. Include how the astro sign affects the reading. Keep it mystical and inspiring, about 3-4 sentences.`;
+            `کارت‌های تاروت ${displayCards} و برج ${astroSign} برای شما کشیده شده‌اند. لطفاً یک فال اسرارآمیز و الهام‌بخش به زبان فارسی بنویسید که معنای این کارت‌ها را با تأثیرات نجومی ترکیب کند. از نام‌های فارسی کارت‌ها استفاده کنید: ${displayCards}. فال باید شامل پیش‌بینی‌های مشخص درباره آینده، چالش‌ها، فرصت‌ها و راهنمایی‌های عملی باشد. فقط به زبان فارسی و با استفاده از حروف فارسی بنویسید. فال باید 4-5 جمله باشد و شامل پیش‌بینی‌های واقعی باشد.` :
+            `The tarot cards ${displayCards} and zodiac sign ${astroSign} have been drawn for you. Please write a mystical and inspiring fortune reading in English that combines the meanings of these cards with astrological influences. Use the card names: ${displayCards}. The reading should include specific predictions about the future, challenges, opportunities, and practical guidance. Make it 4-5 sentences and include real predictions.`;
 
           const result = await model.generateContent(prompt);
           fortune = result.response.text();

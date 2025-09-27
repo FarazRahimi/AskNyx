@@ -532,6 +532,8 @@ async function generateOverallAIFortune() {
                 throw new Error('Backend returned sample text');
             }
             
+            // Return AI-generated fortune
+            console.log('🤖 Using AI-generated fortune');
             return data.fortune;
         } else {
             throw new Error('Backend API failed');
