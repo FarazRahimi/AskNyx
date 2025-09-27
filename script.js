@@ -404,7 +404,7 @@ async function createAIOverallFortune() {
     const textElement = document.getElementById('aiOverallText');
     
     // Update typing indicator to show AI is working
-    textElement.innerHTML = '<div class="ai-typing-indicator">AI is analyzing your cards and astro sign...</div>';
+    textElement.innerHTML = '<div class="ai-typing-indicator">✨ AI is analyzing your cards and astro sign... ✨</div>';
     textElement.classList.add('typing');
     
     try {
@@ -519,6 +519,19 @@ async function generateOverallAIFortune() {
         if (response.ok) {
             const data = await response.json();
             console.log('✅ Backend API success');
+            console.log('📝 Fortune preview:', data.fortune.substring(0, 100) + '...');
+            
+            // Check if this looks like sample text (contains generic phrases)
+            const samplePhrases = ['cosmic forces', 'universe is aligning', 'ancient symbols'];
+            const isSampleText = samplePhrases.some(phrase => 
+                data.fortune.toLowerCase().includes(phrase.toLowerCase())
+            );
+            
+            if (isSampleText) {
+                console.log('⚠️ Received sample text from backend, treating as fallback');
+                throw new Error('Backend returned sample text');
+            }
+            
             return data.fortune;
         } else {
             throw new Error('Backend API failed');
