@@ -37,13 +37,21 @@ exports.handler = async (event, context) => {
     const API_KEY = process.env.GEMINI_API_KEY || process.env.API_KEY;
     let genAI = null;
 
-    if (API_KEY && API_KEY !== 'test-key') {
+    console.log('🔍 Environment check:');
+    console.log('  - GEMINI_API_KEY exists:', !!process.env.GEMINI_API_KEY);
+    console.log('  - API_KEY exists:', !!process.env.API_KEY);
+    console.log('  - API_KEY length:', API_KEY ? API_KEY.length : 0);
+    console.log('  - API_KEY starts with:', API_KEY ? API_KEY.substring(0, 10) + '...' : 'none');
+
+    if (API_KEY && API_KEY !== 'test-key' && API_KEY !== 'your_actual_gemini_api_key_here') {
       try {
         genAI = new GoogleGenerativeAI(API_KEY);
         console.log('✅ Google AI Studio API initialized');
       } catch (error) {
         console.log('⚠️ Google AI Studio API not available:', error.message);
       }
+    } else {
+      console.log('⚠️ No valid API key provided, using sample responses');
     }
 
     let fortune = '';
@@ -83,13 +91,16 @@ exports.handler = async (event, context) => {
 
           console.log('✅ AI fortune generated successfully');
         } else {
+          console.log('❌ No valid AI model available');
           throw new Error('No valid AI model available');
         }
       } catch (error) {
         console.log('❌ AI generation failed:', error.message);
+        console.log('❌ Error details:', error);
         throw error;
       }
     } else {
+      console.log('❌ No AI API key available');
       throw new Error('No AI API key available');
     }
 
