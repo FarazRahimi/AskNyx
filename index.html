@@ -11,18 +11,31 @@
     <!-- Google Analytics -->
     <script>
         // Initialize Google Analytics if ID is provided
-        const gaId = window.APP_CONFIG.GOOGLE_ANALYTICS_ID;
-        if (gaId && gaId !== 'GA_MEASUREMENT_ID') {
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
-            document.head.appendChild(script);
-            
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', gaId);
-            window.gtag = gtag;
+        // Wait for APP_CONFIG to be loaded
+        function initGoogleAnalytics() {
+            const gaId = window.APP_CONFIG?.GOOGLE_ANALYTICS_ID;
+            if (gaId && gaId !== 'GA_MEASUREMENT_ID') {
+                const script = document.createElement('script');
+                script.async = true;
+                script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+                document.head.appendChild(script);
+                
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', gaId);
+                window.gtag = gtag;
+            }
+        }
+        
+        // Try to initialize immediately, or wait for config to load
+        if (window.APP_CONFIG) {
+            initGoogleAnalytics();
+        } else {
+            // Wait for config.js to load
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(initGoogleAnalytics, 100);
+            });
         }
     </script>
     

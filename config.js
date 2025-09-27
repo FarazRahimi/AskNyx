@@ -3,11 +3,11 @@
 
 window.APP_CONFIG = {
     // Google Analytics Configuration
-    GOOGLE_ANALYTICS_ID: process.env.GA_MEASUREMENT_ID || 'GA_MEASUREMENT_ID',
+    GOOGLE_ANALYTICS_ID: 'GA_MEASUREMENT_ID', // Replace with your GA Measurement ID (e.g., G-XXXXXXXXXX)
     
     // Backend Configuration
-    BACKEND_URL: process.env.BACKEND_URL || 'http://localhost:3000',
-    USE_BACKEND: process.env.USE_BACKEND === 'true' || false,
+    BACKEND_URL: 'http://localhost:3000', // Replace with your deployed backend URL
+    USE_BACKEND: false, // Set to true to enable backend AI calls
     
     // App Configuration
     APP_NAME: 'Nyx\'s Vision',
