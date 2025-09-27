@@ -33,9 +33,15 @@ if (API_KEY && API_KEY !== 'test-key' && API_KEY !== 'your_actual_gemini_api_key
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// CORS configuration - more permissive for development
+// CORS configuration - allow Netlify and all origins
 app.use(cors({
-    origin: true, // Allow all origins in development
+    origin: [
+        'https://asknyx.netlify.app',
+        'https://asknyx-production.netlify.app', 
+        'http://localhost:8000',
+        'http://localhost:3000',
+        'https://railway.com'
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
