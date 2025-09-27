@@ -339,8 +339,9 @@ function playResultsVideo(video) {
         showResultsContent();
     });
     
-    // After 8 seconds (video duration), fade to background and show content
+    // After 8 seconds (video duration), pause video and show content
     setTimeout(() => {
+        video.pause(); // Stop the video
         showResultsContent();
     }, 8000); // 8 seconds
 }
