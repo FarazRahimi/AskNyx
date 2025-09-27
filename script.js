@@ -270,11 +270,15 @@ function switchLanguageVideo(lang) {
     console.log('Astro screen visible:', astroSignScreen.classList.contains('visible'));
     console.log('Card screen visible:', cardSelectionScreen.classList.contains('visible'));
     
-    // Hide all videos first
+    // Hide all videos first and pause/mute them
     englishVideo.style.opacity = '0';
+    englishVideo.pause();
     farsiVideo.style.opacity = '0';
+    farsiVideo.pause();
     englishAstroVideo.style.opacity = '0';
+    englishAstroVideo.pause();
     farsiAstroVideo.style.opacity = '0';
+    farsiAstroVideo.pause();
     
     // Show appropriate language video based on current screen
     setTimeout(() => {
@@ -282,6 +286,7 @@ function switchLanguageVideo(lang) {
             // Astrology screen - hide starting video and show astrology video
             console.log('Showing astrology video for lang:', lang);
             startingVideo.style.opacity = '0';
+            startingVideo.pause();
             const targetVideo = lang === 'fa' ? farsiAstroVideo : englishAstroVideo;
             console.log('Target video:', targetVideo.id);
             targetVideo.style.opacity = '1';
@@ -291,6 +296,7 @@ function switchLanguageVideo(lang) {
             // Card selection screen - hide starting video and show language video
             console.log('Showing card selection video for lang:', lang);
             startingVideo.style.opacity = '0';
+            startingVideo.pause();
             const targetVideo = lang === 'fa' ? farsiVideo : englishVideo;
             console.log('Target video:', targetVideo.id);
             targetVideo.style.opacity = '1';
@@ -304,9 +310,11 @@ function switchLanguageVideo(lang) {
 
 // Handle results video switching
 function switchResultsVideo(lang) {
-    // Hide all results videos
+    // Hide all results videos and pause them
     englishResultsVideo.style.opacity = '0';
+    englishResultsVideo.pause();
     farsiResultsVideo.style.opacity = '0';
+    farsiResultsVideo.pause();
     
     // Hide results content initially
     const resultsContent = document.querySelector('.results-content');
@@ -722,11 +730,15 @@ function showLoadingScreen() {
     // Hide card selection screen first
     cardSelectionScreen.classList.remove('visible');
     
-    // Hide all language videos immediately
+    // Hide all language videos immediately and pause them
     englishVideo.style.opacity = '0';
+    englishVideo.pause();
     farsiVideo.style.opacity = '0';
+    farsiVideo.pause();
     englishAstroVideo.style.opacity = '0';
+    englishAstroVideo.pause();
     farsiAstroVideo.style.opacity = '0';
+    farsiAstroVideo.pause();
     
     // Show loading screen
     setTimeout(() => {
@@ -1438,13 +1450,19 @@ function restartApp() {
         card.style.boxShadow = '';
     });
     
-    // Reset videos
+    // Reset videos - pause all and hide them
     englishVideo.style.opacity = '0';
+    englishVideo.pause();
     farsiVideo.style.opacity = '0';
+    farsiVideo.pause();
     englishAstroVideo.style.opacity = '0';
+    englishAstroVideo.pause();
     farsiAstroVideo.style.opacity = '0';
+    farsiAstroVideo.pause();
     englishResultsVideo.style.opacity = '0';
+    englishResultsVideo.pause();
     farsiResultsVideo.style.opacity = '0';
+    farsiResultsVideo.pause();
     
     // Play starting video
     startingVideo.style.opacity = '1';

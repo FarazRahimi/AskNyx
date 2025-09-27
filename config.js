@@ -6,8 +6,8 @@ window.APP_CONFIG = {
     GOOGLE_ANALYTICS_ID: 'GA_MEASUREMENT_ID', // Replace with your GA Measurement ID (e.g., G-XXXXXXXXXX)
     
     // Backend Configuration
-    BACKEND_URL: 'http://localhost:3000', // Replace with your deployed backend URL
-    USE_BACKEND: false, // Set to true to enable backend AI calls
+    BACKEND_URL: 'https://asknyx-production.railway.app', // Railway backend URL
+    USE_BACKEND: true, // Enable backend AI calls for Netlify
     
     // App Configuration
     APP_NAME: 'Nyx\'s Vision',
