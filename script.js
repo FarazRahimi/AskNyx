@@ -722,6 +722,12 @@ function showLoadingScreen() {
     // Hide card selection screen first
     cardSelectionScreen.classList.remove('visible');
     
+    // Hide all language videos immediately
+    englishVideo.style.opacity = '0';
+    farsiVideo.style.opacity = '0';
+    englishAstroVideo.style.opacity = '0';
+    farsiAstroVideo.style.opacity = '0';
+    
     // Show loading screen
     setTimeout(() => {
         loadingScreen.classList.add('visible');
