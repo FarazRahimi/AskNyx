@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ask Nyx </title>
     
+    <!-- App Configuration -->
+    <script src="config.js"></script>
+    
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID');
+        // Initialize Google Analytics if ID is provided
+        const gaId = window.APP_CONFIG.GOOGLE_ANALYTICS_ID;
+        if (gaId && gaId !== 'GA_MEASUREMENT_ID') {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+            document.head.appendChild(script);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', gaId);
+            window.gtag = gtag;
+        }
     </script>
     
     <!-- Google Fonts -->

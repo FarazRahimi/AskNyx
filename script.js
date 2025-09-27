@@ -221,11 +221,14 @@ function trackEvent(eventName, parameters = {}) {
 
 function trackPageView(pageName) {
     if (typeof gtag !== 'undefined') {
-        gtag('config', 'GA_MEASUREMENT_ID', {
-            page_title: pageName,
-            page_location: window.location.href
-        });
-        console.log('📊 Page View:', pageName);
+        const gaId = window.APP_CONFIG?.GOOGLE_ANALYTICS_ID;
+        if (gaId && gaId !== 'GA_MEASUREMENT_ID') {
+            gtag('config', gaId, {
+                page_title: pageName,
+                page_location: window.location.href
+            });
+            console.log('📊 Page View:', pageName);
+        }
     }
 }
 
@@ -472,9 +475,9 @@ async function createAIOverallFortune() {
     }
 }
 
-// Backend API configuration
-const BACKEND_URL = 'http://localhost:3000'; // Change to your backend URL
-const USE_BACKEND = true; // Set to true when backend is running
+// Backend API configuration - now from config
+const BACKEND_URL = window.APP_CONFIG?.BACKEND_URL || 'http://localhost:3000';
+const USE_BACKEND = window.APP_CONFIG?.USE_BACKEND || false;
 
 // Generate overall AI fortune text using backend API
 async function generateOverallAIFortune() {

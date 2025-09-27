@@ -5,7 +5,10 @@
   "main": "backend-proxy-example.js",
   "scripts": {
     "start": "node backend-proxy-example.js",
-    "dev": "nodemon backend-proxy-example.js"
+    "dev": "nodemon backend-proxy-example.js",
+    "serve": "node serve-config.js",
+    "build-config": "node build-config.js",
+    "start-with-config": "npm run build-config && npm run serve"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
