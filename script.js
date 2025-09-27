@@ -504,7 +504,7 @@ async function generateOverallAIFortune() {
         console.log(`🔄 Calling backend API for: ${cardNames} + ${astroSign}`);
         
         // Call your backend API
-        const response = await fetch(`${BACKEND_URL}/api/fortune`, {
+        const response = await fetch(`${BACKEND_URL}/fortune`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

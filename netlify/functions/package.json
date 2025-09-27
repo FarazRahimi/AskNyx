@@ -1,0 +1,13 @@
+{
+  "name": "asknyx-netlify-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions for AskNyx AI Backend",
+  "main": "fortune.js",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
