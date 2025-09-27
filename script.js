@@ -521,8 +521,13 @@ async function generateOverallAIFortune() {
             console.log('✅ Backend API success');
             console.log('📝 Fortune preview:', data.fortune.substring(0, 100) + '...');
             
-            // Check if this looks like sample text (contains generic phrases)
-            const samplePhrases = ['cosmic forces', 'universe is aligning', 'ancient symbols'];
+            // Check if this looks like sample text (contains exact sample text phrases)
+            const samplePhrases = [
+                'cosmic forces have revealed powerful cards',
+                'universe is aligning to bring you new insights and possibilities',
+                'ancient symbols as they guide you toward your highest potential',
+                'cards have been drawn for you at this moment for a reason'
+            ];
             const isSampleText = samplePhrases.some(phrase => 
                 data.fortune.toLowerCase().includes(phrase.toLowerCase())
             );
