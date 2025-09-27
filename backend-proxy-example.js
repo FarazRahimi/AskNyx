@@ -33,19 +33,29 @@ if (API_KEY && API_KEY !== 'test-key' && API_KEY !== 'your_actual_gemini_api_key
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// CORS configuration - allow Netlify and all origins
+// CORS configuration - allow all origins (more permissive)
 app.use(cors({
-    origin: [
-        'https://asknyx.netlify.app',
-        'https://asknyx-production.netlify.app', 
-        'http://localhost:8000',
-        'http://localhost:3000',
-        'https://railway.com'
-    ],
+    origin: true, // Allow all origins
     credentials: true,
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
 }));
+
+// Additional CORS headers as backup
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    
+    if (req.method === 'OPTIONS') {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
+});
 
 // Set proper UTF-8 encoding for responses
 app.use((req, res, next) => {
