@@ -189,6 +189,7 @@ body.farsi {
 
 .astro-question {
     font-size: 1.5rem;
+    margin-top: 4rem;
     margin-bottom: 2rem;
     text-align: center;
     color: white;
@@ -300,6 +301,7 @@ body[dir="rtl"] .zodiac-signs-grid {
 .instruction {
     font-size: 1.5rem;
     color: #d4a5d4;
+    margin-top: 4rem;
     margin-bottom: 1rem;
     font-weight: 400;
 }
@@ -853,7 +855,7 @@ body[dir="rtl"] .zodiac-signs-grid {
     .instruction {
         font-size: 0.9rem !important;
         margin-bottom: 0.8rem !important;
-        margin-top: 0.5rem !important;
+        margin-top: 3rem !important;
     }
     
     .card-selection-screen {
@@ -1044,6 +1046,7 @@ body[dir="rtl"] .zodiac-signs-grid {
     .astro-question {
         font-size: 1rem !important;
         margin-bottom: 1rem !important;
+        margin-top: 3rem !important;
         padding: 0 0.5rem !important;
     }
     

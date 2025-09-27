@@ -477,7 +477,7 @@ async function createAIOverallFortune() {
 
 // Backend API configuration - now from config
 const BACKEND_URL = window.APP_CONFIG?.BACKEND_URL || 'http://localhost:3000';
-const USE_BACKEND = window.APP_CONFIG?.USE_BACKEND || false;
+const USE_BACKEND = window.APP_CONFIG?.USE_BACKEND || true;
 
 // Generate overall AI fortune text using backend API
 async function generateOverallAIFortune() {
