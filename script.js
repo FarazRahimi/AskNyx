@@ -477,7 +477,7 @@ async function createAIOverallFortune() {
 
 // Backend API configuration - now from config
 const BACKEND_URL = window.APP_CONFIG?.BACKEND_URL || 'http://localhost:3000';
-const USE_BACKEND = window.APP_CONFIG?.USE_BACKEND || true;
+const USE_BACKEND = window.APP_CONFIG?.USE_BACKEND || false;
 
 // Generate overall AI fortune text using backend API
 async function generateOverallAIFortune() {
@@ -644,15 +644,15 @@ async function showCurrentCard() {
         <h3 class="individual-card-title">${displayName}</h3>
         <div class="individual-card-image">
             <img src="${card.image}" alt="${displayName}">
-        </div>
+            </div>
         <p class="individual-card-description">${displayDescription}</p>
-        <div class="card-navigation">
+            <div class="card-navigation">
             <button class="nav-btn" id="nextCardBtn">
                 ${currentCardIndex === flippedCards.length - 1 ? 
                     translations[currentLanguage].restartBtn : 
                     translations[currentLanguage].nextCardBtn
                 }
-            </button>
+                </button>
         </div>
     `;
     
