@@ -1,0 +1,27 @@
+{
+  "name": "astro-web-backend",
+  "version": "1.0.0",
+  "description": "Backend proxy for AstroWeb AI fortune generation",
+  "main": "backend-proxy-example.js",
+  "scripts": {
+    "start": "node backend-proxy-example.js",
+    "dev": "nodemon backend-proxy-example.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "tarot",
+    "ai",
+    "fortune",
+    "backend"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

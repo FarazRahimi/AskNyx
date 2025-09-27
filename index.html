@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Nyx </title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Starry Background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" id="lang-en">English</button>
+        <button class="lang-btn" id="lang-fa">فارسی</button>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="main-container">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <h1 class="main-title" id="mainTitle">Nyx's Vision</h1>
+            <p class="subtitle" id="subtitle">Discover the secrets within</p>
+            <button class="btn" id="startBtn">Start Journey</button>
+        </div>
+
+        <!-- Astrology Sign Selection Screen -->
+        <div class="astro-sign-screen" id="astroSignScreen">
+            <h2 class="astro-question" id="astroQuestion">What star was watching when you arrived?</h2>
+            <div class="zodiac-signs-grid" id="zodiacSigns">
+                <!-- Zodiac signs will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Card Selection Screen -->
+        <div class="card-selection-screen" id="cardSelectionScreen">
+            <p class="instruction" id="instruction">Choose your path to enlightenment</p>
+            <div class="cards-container">
+                <div class="card" id="card1">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-icon">🔮</div>
+                            <div class="card-title" id="card1Title">Wisdom</div>
+                            <div class="card-description" id="card1Desc">Ancient knowledge awaits</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-icon">✨</div>
+                            <div class="card-title" id="card1BackTitle">Revealed</div>
+                            <div class="card-description" id="card1BackDesc">The path of wisdom is yours</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" id="card2">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-icon">🌟</div>
+                            <div class="card-title" id="card2Title">Power</div>
+                            <div class="card-description" id="card2Desc">Unleash your potential</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-icon">⚡</div>
+                            <div class="card-title" id="card2BackTitle">Awakened</div>
+                            <div class="card-description" id="card2BackDesc">Your power flows freely</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" id="card3">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-icon">🌙</div>
+                            <div class="card-title" id="card3Title">Mystery</div>
+                            <div class="card-description" id="card3Desc">Embrace the unknown</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-icon">🌅</div>
+                            <div class="card-title" id="card3BackTitle">Enlightened</div>
+                            <div class="card-description" id="card3BackDesc">The mystery unfolds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Background -->
+        <div class="video-container">
+            <video class="video-bg" id="startingVideo" autoplay muted>
+                <source src="videos/starting-video.mp4" type="video/mp4">
+            </video>
+            <video class="video-bg" id="englishVideo" muted style="opacity: 0;">
+                <source src="videos/english-video.mp4" type="video/mp4">
+            </video>
+            <video class="video-bg" id="farsiVideo" muted style="opacity: 0;">
+                <source src="videos/farsi-video.mp4" type="video/mp4">
+            </video>
+            <video class="video-bg" id="englishAstroVideo" muted style="opacity: 0;">
+                <source src="videos/english-astro.mp4" type="video/mp4">
+            </video>
+            <video class="video-bg" id="farsiAstroVideo" muted style="opacity: 0;">
+                <source src="videos/farsi-astro.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Loading Screen -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <h2 class="loading-title" id="loadingTitle">Preparing Your Fortune...</h2>
+                <p class="loading-subtitle" id="loadingSubtitle">The mystical energies are aligning</p>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="results-screen" id="resultsScreen">
+            <!-- Full-screen background video -->
+            <div class="results-video-container">
+                <video class="results-video" id="englishResultsVideo" muted style="opacity: 0;">
+                    <source src="videos/english-results.mp4" type="video/mp4">
+                </video>
+                <video class="results-video" id="farsiResultsVideo" muted style="opacity: 0;">
+                    <source src="videos/farsi-results.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+            <!-- Results content -->
+            <div class="results-content">
+                <h2 class="results-title" id="resultsTitle">Your Fortune Awaits</h2>
+                
+                <!-- Entertainment Disclaimer -->
+                <div class="disclaimer-section" id="disclaimerSection">
+                    <div class="disclaimer-content">
+                        <p class="disclaimer-text"></p>
+                        <p class="disclaimer-subtext"></p>
+                    </div>
+                </div>
+
+                <!-- AI Overview Section -->
+                <div class="ai-overview-section" id="aiOverviewSection">
+                    <!-- Stacked Cards Overview -->
+                    <div class="stacked-cards-container" id="stackedCardsContainer">
+                        <!-- All 3 selected cards will be displayed here stacked -->
+                    </div>
+                    
+                    <!-- AI Overall Fortune -->
+                    <div class="ai-overall-fortune" id="aiOverallFortune">
+                        <div class="ai-fortune-text" id="aiOverallText">
+                            <div class="ai-typing-indicator">Generating your fortune reading...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Individual Cards Section -->
+                <div class="individual-cards-section" id="individualCardsSection">
+                    <!-- Individual card details will be displayed here sequentially -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p class="copyright"></p>
+            <a href="https://farazrahimi.com" target="_blank" class="developer-link">
+                <span class="developer-text"></span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
