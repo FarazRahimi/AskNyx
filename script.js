@@ -783,6 +783,26 @@ function handleStartingVideoEnd() {
 
 // Setup video event listeners
 function setupVideoListeners() {
+    // Configure all videos for Safari compatibility
+    const allVideos = [startingVideo, englishVideo, farsiVideo, englishAstroVideo, farsiAstroVideo, englishResultsVideo, farsiResultsVideo];
+    
+    allVideos.forEach(video => {
+        // Safari-specific video configuration
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.setAttribute('disablepictureinpicture', '');
+        video.setAttribute('preload', 'metadata');
+        
+        // Prevent context menu and interactions
+        video.addEventListener('contextmenu', e => e.preventDefault());
+        video.addEventListener('selectstart', e => e.preventDefault());
+        video.addEventListener('dragstart', e => e.preventDefault());
+        
+        // Ensure videos don't show controls
+        video.controls = false;
+        video.controlsList = 'nodownload nofullscreen noremoteplaybook';
+    });
+    
     // Ensure starting video plays (muted initially for autoplay)
     startingVideo.addEventListener('loadeddata', () => {
         startingVideo.play().catch(e => console.log('Video autoplay failed:', e));
